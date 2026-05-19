@@ -1,0 +1,86 @@
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  darkMode: 'class',
+  content: [
+    './src/pages/**/*.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
+    './src/app/**/*.{ts,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#111111',
+          active: '#242424',
+          disabled: '#e5e7eb',
+        },
+        'brand-accent': '#3b82f6',
+        'badge-orange': '#fb923c',
+        'badge-pink': '#ec4899',
+        'badge-violet': '#8b5cf6',
+        'badge-emerald': '#34d399',
+        canvas: 'var(--background)',
+        'surface-soft': 'var(--surface-soft)',
+        'surface-card': 'var(--surface-card)',
+        'surface-strong': 'var(--surface-strong)',
+        'surface-dark': 'var(--surface-dark)',
+        'surface-dark-elevated': 'var(--surface-dark-elevated)',
+        ink: 'var(--ink)',
+        body: 'var(--body)',
+        muted: 'var(--muted)',
+        'muted-soft': 'var(--muted-soft)',
+        'on-primary': 'var(--on-primary)',
+        'on-dark': 'var(--on-dark)',
+        'on-dark-soft': 'var(--on-dark-soft)',
+        hairline: 'var(--hairline)',
+        'hairline-soft': 'var(--hairline-soft)',
+        success: '#10b981',
+        warning: '#f59e0b',
+        error: '#ef4444',
+      },
+      fontFamily: {
+        display: ['Inter', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        code: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+      },
+      fontSize: {
+        'display-xl': ['64px', { lineHeight: '1.05', letterSpacing: '-2px', fontWeight: '600' }],
+        'display-lg': ['48px', { lineHeight: '1.1', letterSpacing: '-1.5px', fontWeight: '600' }],
+        'display-md': ['36px', { lineHeight: '1.15', letterSpacing: '-1px', fontWeight: '600' }],
+        'display-sm': ['28px', { lineHeight: '1.2', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'title-lg': ['22px', { lineHeight: '1.3', letterSpacing: '-0.3px', fontWeight: '600' }],
+        'title-md': ['18px', { lineHeight: '1.4', letterSpacing: '0', fontWeight: '600' }],
+        'title-sm': ['16px', { lineHeight: '1.4', letterSpacing: '0', fontWeight: '600' }],
+        'body-md': ['16px', { lineHeight: '1.5', letterSpacing: '0', fontWeight: '400' }],
+        'body-sm': ['14px', { lineHeight: '1.5', letterSpacing: '0', fontWeight: '400' }],
+        caption: ['13px', { lineHeight: '1.4', letterSpacing: '0', fontWeight: '500' }],
+      },
+      borderRadius: {
+        xs: '4px',
+        sm: '6px',
+        md: '8px',
+        lg: '12px',
+        xl: '16px',
+        pill: '9999px',
+      },
+      spacing: {
+        xxs: '4px',
+        xs: '8px',
+        sm: '12px',
+        md: '16px',
+        lg: '24px',
+        xl: '32px',
+        xxl: '48px',
+        section: '96px',
+      },
+      boxShadow: {
+        subtle: '0 1px 2px rgba(0,0,0,0.05)',
+        'subtle-md': '0 4px 12px rgba(0,0,0,0.08)',
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
