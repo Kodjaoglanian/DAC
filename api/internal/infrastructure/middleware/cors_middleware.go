@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"strings"
 	"time"
 
 	"dac/project-tracker/internal/config"
@@ -11,8 +12,12 @@ import (
 
 // CORSMiddleware configures Cross-Origin Resource Sharing
 func CORSMiddleware(cfg *config.Config) gin.HandlerFunc {
+	origins := strings.Split(cfg.CORSAllowedOrigins, ",")
+	for i := range origins {
+		origins[i] = strings.TrimSpace(origins[i])
+	}
 	return cors.New(cors.Config{
-		AllowOrigins:     []string{cfg.CORSAllowedOrigins},
+		AllowOrigins:     origins,
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
