@@ -11,8 +11,8 @@ services:
       - NEXT_PUBLIC_APP_NAME=ProjectTracker
       - NEXT_PUBLIC_APP_URL=http://localhost:3000
     networks:
-      - frontend_network
+      - dac_network
 
 networks:
-  frontend_network:
-    driver: bridge
+  dac_network:
+    external: true

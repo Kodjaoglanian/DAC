@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - project_tracker_network
+      - dac_network
 
   redis:
     image: redis:7-alpine
@@ -31,7 +31,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - project_tracker_network
+      - dac_network
 
   backend:
     build:
@@ -64,12 +64,12 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - project_tracker_network
+      - dac_network
 
 volumes:
   postgres_data:
   redis_data:
 
 networks:
-  project_tracker_network:
+  dac_network:
     driver: bridge
