@@ -117,7 +117,7 @@ func (r *ReportRepositoryImpl) GetRecentProjects(userID uuid.UUID, limit int) ([
 	var projects []model.Project
 
 	subQuery := r.db.Table("project_members").Select("project_id").Where("user_id = ?", userID)
-	if err := r.db.Preload("Creator").
+	if err := r.db.Preload("Creator").Preload("Tasks").
 		Where("id IN (?) OR created_by = ?", subQuery, userID).
 		Order("created_at desc").
 		Limit(limit).
