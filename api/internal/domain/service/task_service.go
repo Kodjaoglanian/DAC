@@ -1,12 +1,14 @@
 package service
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"time"
 
 	"dac/project-tracker/internal/domain/model"
 	"dac/project-tracker/internal/domain/repository"
+	"dac/project-tracker/internal/infrastructure/database"
 
 	"github.com/google/uuid"
 )
@@ -15,13 +17,15 @@ import (
 type TaskService struct {
 	taskRepo   repository.TaskRepository
 	memberRepo repository.MemberRepository
+	redis      *database.RedisClient
 }
 
 // NewTaskService creates a new task service
-func NewTaskService(taskRepo repository.TaskRepository, memberRepo repository.MemberRepository) *TaskService {
+func NewTaskService(taskRepo repository.TaskRepository, memberRepo repository.MemberRepository, redis *database.RedisClient) *TaskService {
 	return &TaskService{
 		taskRepo:   taskRepo,
 		memberRepo: memberRepo,
+		redis:      redis,
 	}
 }
 
@@ -54,6 +58,7 @@ func (s *TaskService) CreateTask(projectID uuid.UUID, title, description, priori
 	if err := s.taskRepo.Create(task); err != nil {
 		return nil, err
 	}
+	s.invalidateDashboardCache(userID)
 
 	return task, nil
 }
@@ -114,6 +119,7 @@ func (s *TaskService) UpdateTask(taskID uuid.UUID, title, description, status, p
 	if err := s.taskRepo.Update(task); err != nil {
 		return nil, err
 	}
+	s.invalidateDashboardCache(userID)
 
 	// Record status change
 	if status != "" && oldStatus != model.TaskStatus(status) {
@@ -151,6 +157,7 @@ func (s *TaskService) UpdateTaskStatus(taskID uuid.UUID, status string, userID u
 	if err := s.taskRepo.Update(task); err != nil {
 		return nil, err
 	}
+	s.invalidateDashboardCache(userID)
 
 	history := &model.TaskHistory{
 		TaskID:    taskID,
@@ -176,5 +183,15 @@ func (s *TaskService) DeleteTask(taskID, userID uuid.UUID) error {
 		return errors.New("insufficient permissions")
 	}
 
-	return s.taskRepo.Delete(taskID)
+	if err := s.taskRepo.Delete(taskID); err != nil {
+		return err
+	}
+	s.invalidateDashboardCache(userID)
+	return nil
+}
+
+func (s *TaskService) invalidateDashboardCache(userID uuid.UUID) {
+	if s.redis != nil {
+		s.redis.Delete(context.Background(), "dashboard:"+userID.String())
+	}
 }

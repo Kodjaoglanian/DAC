@@ -56,7 +56,7 @@ func main() {
 	authService := service.NewAuthService(userRepo, cfg.JWTSecret, cfg.JWTExpirationHours)
 	userService := service.NewUserService(userRepo)
 	projectService := service.NewProjectService(projectRepo, memberRepo)
-	taskService := service.NewTaskService(taskRepo, memberRepo)
+	taskService := service.NewTaskService(taskRepo, memberRepo, redisClient)
 	memberService := service.NewMemberService(memberRepo, projectRepo)
 	reportService := service.NewReportService(reportRepo, projectRepo, taskRepo, memberRepo, redisClient)
 
