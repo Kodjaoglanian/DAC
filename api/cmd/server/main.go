@@ -72,6 +72,7 @@ func main() {
 		memberService,
 		reportService,
 		memberRepo,
+		db,
 		logger,
 		cfg,
 	)

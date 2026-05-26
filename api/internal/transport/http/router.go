@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 // NewRouter creates and configures the Gin router with all routes
@@ -20,6 +21,7 @@ func NewRouter(
 	memberService *service.MemberService,
 	reportService *service.ReportService,
 	memberRepo repository.MemberRepository,
+	db *gorm.DB,
 	logger *zap.Logger,
 	cfg *config.Config,
 ) *gin.Engine {
@@ -38,7 +40,7 @@ func NewRouter(
 
 	// Middleware
 	authMiddleware := middleware.AuthMiddleware(cfg)
-	projectMemberMiddleware := middleware.ProjectMemberMiddleware(memberRepo)
+	projectMemberMiddleware := middleware.ProjectMemberMiddleware(memberRepo, db)
 
 	api := r.Group("/api/v1")
 
