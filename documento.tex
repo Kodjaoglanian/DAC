@@ -1,0 +1,675 @@
+% ============================================================
+% Documento do Projeto — Plataforma de Registro e Acompanhamento de Projetos
+% Compilar com: pdflatex, xelatex ou lualatex
+% Fontes configuradas com fallback automático conforme o compilador
+% ============================================================
+\documentclass[a4paper,12pt,oneside]{article}
+
+% ============================================================
+% PACOTES
+% ============================================================
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\fi
+\usepackage[brazilian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{tikz}
+
+% ============================================================
+% CORES (Design System Cal.com)
+% ============================================================
+\definecolor{primary}{HTML}{111111}
+\definecolor{primaryactive}{HTML}{242424}
+\definecolor{ink}{HTML}{111111}
+\definecolor{bodytext}{HTML}{374151}
+\definecolor{muted}{HTML}{6B7280}
+\definecolor{mutedsoft}{HTML}{898989}
+\definecolor{canvas}{HTML}{FFFFFF}
+\definecolor{surfacesoft}{HTML}{F8F9FA}
+\definecolor{surfacecard}{HTML}{F5F5F5}
+\definecolor{surfacestrong}{HTML}{E5E7EB}
+\definecolor{surfacedark}{HTML}{101010}
+\definecolor{hairline}{HTML}{E5E7EB}
+\definecolor{brandaccent}{HTML}{3B82F6}
+\definecolor{success}{HTML}{10B981}
+\definecolor{warning}{HTML}{F59E0B}
+\definecolor{error}{HTML}{EF4444}
+\definecolor{badgeorange}{HTML}{FB923C}
+\definecolor{badgepink}{HTML}{EC4899}
+\definecolor{badgeviolet}{HTML}{8B5CF6}
+\definecolor{badgeemerald}{HTML}{34D399}
+
+% ============================================================
+% FONTES
+% ============================================================
+\ifPDFTeX
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  \usepackage{fontspec}
+  % Inter como fonte principal, com fallback para DejaVu Sans.
+  \IfFontExistsTF{Inter}{
+    \setsansfont{Inter}
+  }{
+    \setsansfont{DejaVu Sans}
+  }
+
+  \IfFontExistsTF{Carlito}{
+    \setmainfont{Carlito}
+  }{
+    \setmainfont{DejaVu Serif}
+  }
+
+  \setmonofont{DejaVu Sans Mono}[Scale=0.85]
+\fi
+
+% ============================================================
+% GEOMETRIA
+% ============================================================
+\geometry{
+  left=2.2cm,
+  right=2.2cm,
+  top=2.5cm,
+  bottom=2.5cm
+}
+
+% ============================================================
+% ESPAÇAMENTO
+% ============================================================
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{6pt}
+\setlength{\headheight}{14pt}
+\emergencystretch=3em
+\hbadness=10000
+
+% ============================================================
+% CABEÇALHO E RODAPÉ
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\small\color{muted} Plataforma de Registro e Acompanhamento de Projetos}
+\fancyfoot[R]{\small\color{muted} \thepage}
+\fancyfoot[L]{\small\color{muted} DAC --- 5\textsuperscript{o} Semestre TADS}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ============================================================
+% ESTILOS DE TÍTULO
+% ============================================================
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{primary}}
+  {\thesection}{1em}{}[\titlerule]
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{primaryactive}}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{bodytext}}
+  {\thesubsubsection}{1em}{}
+
+% ============================================================
+% HYPERREF
+% ============================================================
+\hypersetup{
+  hypertexnames=false,
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=brandaccent,
+  citecolor=primary,
+  pdftitle={Plataforma de Registro e Acompanhamento de Projetos},
+  pdfauthor={DAC - 5o Semestre TADS},
+  pdfsubject={Documento do Projeto}
+}
+
+% ============================================================
+% COMANDOS AUXILIARES
+% ============================================================
+\newcommand{\destaque}[1]{\colorbox{surfacesoft}{\textcolor{ink}{\textbf{#1}}}}
+\newcommand{\badge}[2]{\colorbox{#1}{\textcolor{ink}{\small\textbf{#2}}}}
+
+% ============================================================
+% INÍCIO DO DOCUMENTO
+% ============================================================
+\begin{document}
+
+% ============================================================
+% CAPA
+% ============================================================
+\begin{titlepage}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[surfacedark] (current page.north west) rectangle (current page.south east);
+  \fill[primary] ([yshift=-3.0cm]current page.north west) rectangle ([yshift=-3.15cm]current page.north east);
+\end{tikzpicture}
+
+\color{canvas}
+\centering
+\vspace*{5.0cm}
+
+{\Huge\bfseries Plataforma de Registro e\par}
+\vspace{0.25cm}
+{\Huge\bfseries Acompanhamento de Projetos\par}
+
+\vspace{0.8cm}
+{\Large\color{surfacestrong} Documento do Projeto\par}
+
+\vspace{0.65cm}
+{\normalsize\color{mutedsoft} Desafio de Articulação de Competências (DAC)\par}
+\vspace{0.18cm}
+{\normalsize\color{mutedsoft} 5\textsuperscript{o} Semestre --- 2026/A\par}
+
+\vspace{0.75cm}
+{\small\color{mutedsoft} Curso: 262 --- Tecnologia em Análise e Desenvolvimento de Sistemas\par}
+\vspace{0.15cm}
+{\small\color{mutedsoft} Professor Referência: Alexandre dos Santos Batista --- RF 15881\par}
+\vspace{0.15cm}
+{\small\color{mutedsoft} Competências: Gestão e otimização de recursos; Estratégia e inclusão organizacional\par}
+
+\vspace{0.9cm}
+{\normalsize\bfseries Alunos apresentadores:\par}
+\vspace{0.35cm}
+{\normalsize\bfseries Bruno Kodjaoglanian Cardoso Tulux\par}
+\vspace{0.18cm}
+{\normalsize\bfseries Eduardo Gomes Ascencio\par}
+\vspace{0.18cm}
+{\normalsize\bfseries Eduardo Motta Magalhães\par}
+
+\vspace{0.75cm}
+{\footnotesize\itshape\color{mutedsoft} Disciplinas Integradoras:\par}
+\vspace{0.12cm}
+{\footnotesize\itshape\color{mutedsoft} Autonomia Intelectual do Estudante $\cdot$ Programação Back End I $\cdot$ Programação Front End I\par}
+\vspace{0.12cm}
+{\footnotesize\itshape\color{mutedsoft} Redes de Computadores Aplicada $\cdot$ Tópicos Especiais em Análise de Sistemas\par}
+\vspace*{0.6cm}
+\end{titlepage}
+
+% ============================================================
+% SUMÁRIO
+% ============================================================
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+% 1. INTRODUÇÃO
+% ============================================================
+\section{Introdução}
+
+As organizações contemporâneas buscam constantemente otimizar seus recursos com o objetivo de aumentar a eficiência operacional, reduzir custos e melhorar a qualidade dos serviços e produtos oferecidos. Entretanto, essa otimização deve ser conduzida de forma sustentável e responsável, considerando não apenas os aspectos financeiros e produtivos, mas também fatores relacionados à diversidade, equidade, inclusão e bem-estar dos diferentes públicos envolvidos.
+
+Nesse contexto, muitas empresas enfrentam desafios relacionados à gestão eficiente de recursos, à comunicação interna entre equipes e à organização de processos operacionais, o que pode impactar diretamente sua produtividade e sua capacidade de inovação. A ausência de ferramentas adequadas para o registro e acompanhamento de projetos institucionais resulta em perda de informações, descontinuidade de processos e dificuldade em mensurar resultados.
+
+Com o avanço das tecnologias digitais e das aplicações web, surgem oportunidades para o desenvolvimento de sistemas computacionais capazes de apoiar as organizações na gestão de informações, no acompanhamento de atividades e na melhoria de processos internos, contribuindo para ambientes de trabalho mais organizados, eficientes e inclusivos.
+
+O presente documento tem como finalidade apresentar o projeto de uma Plataforma de Registro e Acompanhamento de Projetos, desenvolvida como parte do Desafio de Articulação de Competências (DAC) do 5\textsuperscript{o} semestre do curso de Tecnologia em Análise e Desenvolvimento de Sistemas. A plataforma propõe-se a resolver problemas reais de gestão organizacional por meio de uma solução tecnológica web que integra conhecimentos de programação front-end e back-end, redes de computadores e autonomia intelectual.
+
+% ============================================================
+% 2. PROBLEMA IDENTIFICADO
+% ============================================================
+\section{Problema Identificado}
+
+Organizações de diferentes portes e setores enfrentam dificuldades recorrentes quando se trata de registrar, acompanhar e gerenciar seus projetos de forma centralizada e eficiente. Essa problemática se manifesta de diversas maneiras, impactando diretamente a produtividade, a comunicação e a capacidade de tomada de decisão estratégica dentro das instituições.
+
+\subsection{Principais Dores Identificadas}
+
+\begin{itemize}[leftmargin=2cm]
+  \item \textbf{Perda de informações:} Sem um sistema centralizado, dados sobre projetos ficam espalhados em e-mails, planilhas e documentos avulsos, dificultando o acesso e a recuperação de informações históricas.
+  \item \textbf{Comunicação ineficiente entre equipes:} A falta de uma plataforma integrada gera desalinhamento entre os membros do projeto, resultando em retrabalho, atrasos e falhas na entrega.
+  \item \textbf{Falta de visibilidade sobre o andamento dos projetos:} Gestores não possuem uma visão clara e em tempo real do status de cada projeto, impossibilitando intervenções proativas.
+  \item \textbf{Dificuldade na alocação de recursos:} Sem um mapeamento adequado das demandas e da capacidade da equipe, a distribuição de tarefas e recursos torna-se subótima.
+  \item \textbf{Ausência de histórico e rastreabilidade:} Alterações de status, decisões tomadas e responsáveis por cada etapa não são documentadas sistematicamente, comprometendo a auditoria e a continuidade dos projetos.
+\end{itemize}
+
+% ============================================================
+% 3. PÚBLICO-ALVO
+% ============================================================
+\section{Público-Alvo}
+
+A Plataforma de Registro e Acompanhamento de Projetos é destinada a um público diversificado dentro de organizações, abrangendo diferentes perfis de usuários com necessidades e níveis de interação distintos com o sistema. A definição clara do público-alvo é fundamental para orientar as decisões de design, funcionalidades e acessibilidade da plataforma.
+
+\begin{table}[H]
+\centering
+\caption{Perfis de usuários e suas necessidades}
+\label{tab:publico-alvo}
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries}l X X}
+\toprule
+\textbf{Perfil} & \textbf{Descrição} & \textbf{Principais Necessidades} \\
+\midrule
+Gestores de Projetos & Profissionais responsáveis pelo planejamento, execução e entrega de projetos & Visão geral, relatórios, acompanhamento de prazos e recursos \\
+\addlinespace
+Coordenadores de Equipe & Líderes que gerenciam equipes e alocam tarefas & Atribuição de tarefas, comunicação com membros, acompanhamento de progresso \\
+\addlinespace
+Membros da Equipe & Profissionais que executam as tarefas dos projetos & Visualização de tarefas atribuídas, atualização de status, acesso a informações \\
+\addlinespace
+Administradores & Responsáveis pela gestão da plataforma e dos usuários & Gerenciamento de usuários, configurações, relatórios globais \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Além dos perfis funcionais, a plataforma foi projetada considerando a diversidade de usuários no que se refere a habilidades tecnológicas, condições de acessibilidade e dispositivos utilizados. Dessa forma, a interface é intuitiva o suficiente para usuários com pouca experiência tecnológica, ao mesmo tempo em que oferece funcionalidades avançadas para usuários mais experientes.
+
+% ============================================================
+% 4. JUSTIFICATIVA DA SOLUÇÃO
+% ============================================================
+\section{Justificativa da Solução}
+
+A escolha pelo desenvolvimento de uma plataforma web de registro e acompanhamento de projetos justifica-se por diversos fatores de ordem técnica, organizacional e social, que convergem para uma solução que atende tanto as necessidades operacionais das organizações quanto os princípios de inclusão e acessibilidade digital exigidos pelo contexto contemporâneo.
+
+\subsection{Justificativa Técnica}
+
+O uso de tecnologias web modernas permite o desenvolvimento de uma solução acessível a partir de qualquer dispositivo com navegador, sem necessidade de instalação de software adicional. A arquitetura baseada em API REST possibilita a separação clara entre front-end e back-end, facilitando a manutenção, a escalabilidade e a possibilidade futura de desenvolvimento de aplicativos móveis nativos. A escolha de Go para o backend garante alta performance e baixo consumo de recursos, enquanto o Next.js oferece renderização no servidor (SSR) para melhor performance e SEO.
+
+\subsection{Justificativa Organizacional}
+
+Organizações que não possuem ferramentas adequadas de gestão de projetos tendem a apresentar índices maiores de atraso nas entregas, retrabalho e insatisfação das equipes. A centralização das informações em uma única plataforma elimina a fragmentação de dados em múltiplas ferramentas, reduz o tempo gasto em reuniões de alinhamento e proporciona rastreabilidade completa do ciclo de vida dos projetos. Segundo pesquisas do Project Management Institute (PMI), organizações que utilizam ferramentas de gestão de projetos possuem 28\% mais chances de concluir projetos dentro do prazo e do orçamento planejado.
+
+\subsection{Justificativa Social --- Inclusão e Acessibilidade}
+
+A plataforma incorpora princípios de acessibilidade digital conforme as diretrizes WCAG 2.1 nível AA, garantindo que pessoas com deficiência visual, motora ou cognitiva possam utilizar o sistema de forma efetiva. Isso inclui navegação completa por teclado, contraste adequado, labels semânticos e compatibilidade com leitores de tela. Além disso, a interface responsiva garante o acesso a partir de dispositivos móveis, atendendo usuários que não possuem acesso a computadores desktop.
+
+% ============================================================
+% 5. TECNOLOGIAS UTILIZADAS
+% ============================================================
+\section{Tecnologias Utilizadas}
+
+A seleção das tecnologias para o desenvolvimento da plataforma foi realizada com base em critérios de performance, escalabilidade, comunidade, documentação disponível e aderência aos requisitos funcionais e não funcionais do projeto.
+
+\subsection{Backend --- Go (Golang)}
+
+\begin{table}[H]
+\centering
+\caption{Tecnologias do backend}
+\label{tab:tech-backend}
+\small
+\begin{tabularx}{\textwidth}{l l X X}
+\toprule
+\textbf{Tecnologia} & \textbf{Versão} & \textbf{Finalidade} & \textbf{Justificativa} \\
+\midrule
+Go & 1.25+ & Linguagem principal & Compilada, alta performance, concorrência nativa, tipagem forte \\
+Gin & 1.9+ & Framework HTTP & Leve e rápido, roteamento eficiente, middleware embutido \\
+GORM & 1.25+ & ORM & Simplifica CRUD, migrações e relacionamentos com PostgreSQL \\
+golang-jwt & 5.x & Autenticação JWT & Geração e validação segura de tokens \\
+bcrypt & --- & Hash de senhas & Algoritmo seguro e amplamente utilizado \\
+validator & --- & Validação de dados & Validação declarativa de structs \\
+zap & --- & Logging & Logger estruturado de alta performance \\
+go-redis & 9+ & Cache / Redis & Cliente Redis para cache de dados do dashboard \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Banco de Dados --- PostgreSQL}
+
+O PostgreSQL foi escolhido como sistema gerenciador de banco de dados por ser um SGBD relacional robusto, open-source e com suporte a tipos avançados de dados, índices, transações ACID e excelente desempenho para consultas complexas. Sua maturidade, comunidade ativa e conformidade com padrões SQL tornam-no adequado para aplicações que exigem integridade referencial e consistência de dados, como é o caso de um sistema de gestão de projetos.
+
+As principais características do PostgreSQL utilizadas no projeto incluem: suporte nativo a UUID como tipo de dado para chaves primárias, funções de geração automática de UUIDs (\texttt{gen\_random\_uuid}),\linebreak índices para otimização de consultas frequentes, constraints de unicidade para garantir integridade e soft delete para preservar o histórico de registros removidos.
+
+\subsection{Frontend --- Next.js}
+
+\begin{table}[H]
+\centering
+\caption{Tecnologias do frontend}
+\label{tab:tech-frontend}
+\small
+\begin{tabularx}{\textwidth}{l l X X}
+\toprule
+\textbf{Tecnologia} & \textbf{Versão} & \textbf{Finalidade} & \textbf{Justificativa} \\
+\midrule
+Next.js & 14+ & Framework React com SSR & Renderização no servidor, roteamento, otimizações \\
+React & 18+ & Biblioteca UI & Interfaces declarativas, componentes reutilizáveis \\
+TypeScript & 5+ & Tipagem estática & Robustez, detecção de erros em compilação \\
+Tailwind CSS & 3.4+ & Framework CSS & Estilização rápida e consistente com design system \\
+Radix UI & latest & Primitivos de UI & Acessibilidade nativa sem impor estilos \\
+React Hook Form & 7+ & Formulários & Gerenciamento com validação e performance \\
+Zod & 3+ & Validação de schemas & Validação integrada ao React Hook Form \\
+Recharts & 2+ & Gráficos & Biblioteca declarativa e responsiva para dashboards \\
+Axios & 1+ & Cliente HTTP & Comunicação com API REST com interceptors \\
+date-fns & 3+ & Manipulação de datas & Parse e formatação de datas para campos de formulário \\
+sonner & 1+ & Toasts / Notificações & Feedback visual de ações (sucesso, erro, alerta) \\
+next-themes & 0.3+ & Temas claro/escuro & Alternância de tema com suporte a sistema \\
+lucide-react & 0.378+ & Ícones & Conjunto de ícones consistente e acessível \\
+@hookform/resolvers & 3+ & Integração Zod/RHF & Conecta validação Zod ao React Hook Form \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Comunicação Frontend e Backend}
+
+A comunicação entre o frontend (Next.js) e o backend (Go) é realizada por meio de uma API RESTful, utilizando o formato JSON para troca de dados. O fluxo de comunicação segue o seguinte padrão: o frontend realiza requisições HTTP para os endpoints do backend, incluindo o token JWT no header \texttt{Authorization} para autenticação. O backend processa a requisição, aplica as regras de negócio, interage com o banco de dados PostgreSQL via GORM e retorna a resposta no formato padronizado, contendo os campos \texttt{success} e \texttt{data} (ou \texttt{error} em caso de falha).
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=2.5cm,
+  box/.style={rectangle, draw=hairline, fill=surfacesoft, minimum height=1.2cm, minimum width=3cm, align=center, font=\small},
+  arrow/.style={->, thick, color=primary}
+]
+  \node[box] (fe) {Frontend\\Next.js\\Porta 3000};
+  \node[box, right of=fe, xshift=3cm] (be) {Backend\\Go + Gin\\Porta 8080};
+  \node[box, right of=be, xshift=3cm] (db) {PostgreSQL\\Porta 5432};
+
+  \draw[arrow] (fe) -- node[above, font=\footnotesize] {HTTP/REST (JSON + JWT)} (be);
+  \draw[arrow] (be) -- node[above, font=\footnotesize] {GORM (SQL)} (db);
+\end{tikzpicture}
+\caption{Arquitetura de comunicação do sistema}
+\label{fig:arquitetura}
+\end{figure}
+
+% ============================================================
+% 6. OBJETIVOS DO SISTEMA
+% ============================================================
+\section{Objetivos do Sistema}
+
+\subsection{Objetivo Geral}
+
+Desenvolver uma plataforma web funcional para registro e acompanhamento de projetos que contribua para a melhoria da gestão organizacional, auxiliando empresas e instituições na administração de recursos, na comunicação entre equipes e na organização de processos operacionais, com ênfase em usabilidade, acessibilidade digital e inclusão.
+
+\subsection{Objetivos Específicos}
+
+\begin{enumerate}[leftmargin=2cm]
+  \item Implementar um sistema de cadastro e gestão de projetos com informações completas (nome, descrição, status, prioridade, datas, responsável).
+  \item Desenvolver um módulo de gerenciamento de tarefas vinculado a cada projeto, com acompanhamento de status via board Kanban e lista.
+  \item Criar funcionalidades de gerenciamento de equipe, permitindo a atribuição de membros e papéis dentro de cada projeto.
+  \item Implementar um dashboard com indicadores visuais (gráficos e cards) para visão consolidada dos projetos e tarefas.
+  \item Desenvolver sistema de relatórios e filtros avançados para busca e análise de projetos por status, prioridade, responsável e data.
+  \item Garantir acessibilidade digital conforme as diretrizes WCAG 2.1 nível AA, incluindo navegação por teclado, contraste adequado e compatibilidade com leitores de tela.
+  \item Implementar sistema de autenticação e autorização baseado em JWT, com controle de acesso por papéis (admin, manager, member).
+  \item Registrar histórico de alterações de status de projetos e tarefas para rastreabilidade e auditoria.
+  \item Desenvolver interface responsiva compatível com dispositivos móveis e desktop.
+  \item Aplicar conhecimentos de redes de computadores na configuração de comunicação cliente-servidor e infraestrutura de deploy com Docker.
+\end{enumerate}
+
+% ============================================================
+% 7. FUNCIONALIDADES PRINCIPAIS
+% ============================================================
+\section{Funcionalidades Principais}
+
+A seguir, são detalhadas as funcionalidades principais da Plataforma de Registro e Acompanhamento de Projetos, organizadas por módulo.
+
+\subsection{Dashboard}
+
+O dashboard é a tela principal do sistema após o login do usuário. Ele apresenta uma visão consolidada e em tempo real de todos os projetos e tarefas do usuário, permitindo uma compreensão rápida do cenário atual sem necessidade de navegação entre múltiplas telas. O dashboard é composto por: quatro cards de estatísticas no topo (total de projetos, projetos ativos, projetos concluídos e total de tarefas), um gráfico de rosca mostrando a distribuição de projetos por status, um gráfico de barras com a distribuição de tarefas por status, um gráfico de barras horizontais com projetos por prioridade e uma lista dos cinco projetos mais recentemente atualizados.
+
+\subsection{Registro de Projetos}
+
+O módulo de registro de projetos permite a criação e edição de projetos com os seguintes campos: nome (obrigatório, mínimo 3 caracteres), descrição (obrigatória, mínimo 10 caracteres), prioridade (baixa, média, alta ou crítica), data de início prevista, data de término prevista e membro criador (definido automaticamente como owner). Ao criar um projeto, o usuário criador é automaticamente adicionado como membro com o papel ``owner'' e o status inicial é definido como ``planejamento''. Alterações de status são registradas na tabela de histórico para rastreabilidade completa.
+
+\subsection{Acompanhamento de Status}
+
+O sistema implementa um fluxo de status para projetos que segue a sequência: Planejamento, Em Andamento, Concluído e Cancelado. A transição entre status é validada pelo backend para garantir a consistência do fluxo, e cada alteração é registrada na tabela \texttt{status\_history} com o usuário responsável pela mudança e a data/hora da operação. Apenas membros com papel owner ou manager podem alterar o status do projeto. O sistema também sugere automaticamente a alteração para ``concluído'' quando todas as tarefas do projeto estão com status ``concluída''.
+
+\subsection{Gerenciamento de Tarefas}
+
+Cada projeto pode conter múltiplas tarefas, que representam as atividades específicas a serem realizadas. As tarefas possuem: título, descrição, status (A Fazer, Em Progresso, Em Revisão, Concluída), prioridade, data de vencimento e membro responsável (atribuído). O módulo oferece três visualizações: o Board Kanban, com colunas organizadas por status que permitem a movimentação das tarefas entre etapas; a Visualização em Lista, com tabela ordenável e filtrável; e a Visualização em Calendário, que exibe as tarefas distribuídas em seus dias de vencimento, facilitando o planejamento de prazos. Apenas owner ou manager podem criar e excluir tarefas, mas o membro responsável pode atualizar o status. Cada alteração de status gera um registro na tabela \texttt{task\_history}.
+
+\subsection{Gerenciamento de Equipe}
+
+O módulo de gerenciamento de equipe permite adicionar e remover membros dos projetos, além de atribuir e modificar papéis. Os papéis disponíveis são: Owner (criador do projeto, com permissões totais), Manager (pode gerenciar tarefas e membros) e Member (pode visualizar e atualizar tarefas atribuídas). O owner não pode ser removido do projeto, e deve existir pelo menos um owner por projeto. Apenas o owner pode alterar papéis de outros membros. Um usuário não pode ser adicionado mais de uma vez ao mesmo projeto (constraint de unicidade).
+
+\subsection{Relatórios e Filtros}
+
+O sistema oferece funcionalidades de relatório e filtragem avançadas que permitem aos usuários analisar dados de projetos e tarefas de diferentes perspectivas. Os filtros disponíveis na listagem de projetos incluem: busca por texto (nome ou descrição), filtro por status, filtro por prioridade, filtro por criador, ordenação por campo e direção, e paginação configurável. O módulo de relatórios oferece endpoints dedicados para: dados consolidados do dashboard, relatório detalhado por projeto com percentual de progresso, projetos agrupados por status e tarefas agrupadas por status.
+
+\subsection{Configurações do Usuário}
+
+A página de configurações permite ao usuário gerenciar preferências pessoais e da conta. O módulo oferece: edição do nome de perfil (com avatar gerado automaticamente a partir das iniciais do nome), alternância de tema entre claro, escuro e sistema (via \texttt{next-themes}), visualização do e-mail e papel do usuário, e logout seguro da conta. As alterações de tema são aplicadas instantaneamente em toda a interface, persistindo entre sessões.
+
+\subsection{Acessibilidade e Inclusão}
+
+A plataforma foi projetada seguindo as diretrizes WCAG 2.1 nível AA para acessibilidade digital, garantindo que o sistema possa ser utilizado por diferentes perfis de usuários, incluindo pessoas com deficiência. As implementações de acessibilidade incluem: navegação por teclado com focus visível em inputs e botões, labels semânticos em todos os campos de formulário, contraste mínimo de 4.5:1 para texto, compatibilidade com leitores de tela por meio do uso de semântica HTML5 e primitivos acessíveis do Radix UI, atributos ARIA em componentes interativos, semântica HTML5 (header, nav, main, section) e interface responsiva compatível com dispositivos móveis e desktop. Cores nunca são utilizadas como único meio de transmissão de informação, sendo sempre combinadas com texto ou ícones.
+
+% ============================================================
+% 8. MODELAGEM DO BANCO DE DADOS
+% ============================================================
+\section{Modelagem do Banco de Dados}
+
+A modelagem do banco de dados segue o paradigma relacional, utilizando PostgreSQL como SGBD. O esquema é composto por seis tabelas principais que representam as entidades de domínio do sistema e seus relacionamentos.
+
+\subsection{Tabela users}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l l X}
+\toprule
+\textbf{Coluna} & \textbf{Tipo} & \textbf{Restrições} & \textbf{Descrição} \\
+\midrule
+id & UUID & PK, DEFAULT gen\_random\_uuid() & Identificador único \\
+name & VARCHAR(255) & NOT NULL & Nome completo do usuário \\
+email & VARCHAR(255) & NOT NULL, UNIQUE & E-mail de acesso \\
+password & VARCHAR(255) & NOT NULL & Hash bcrypt da senha \\
+role & VARCHAR(50) & NOT NULL, DEFAULT member & Papel: admin, manager, member \\
+avatar\_url & VARCHAR(500) & NULL & URL do avatar \\
+created\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de criação \\
+updated\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de atualização \\
+deleted\_at & TIMESTAMP & NULL, INDEX & Soft delete (GORM) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Tabela projects}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l l X}
+\toprule
+\textbf{Coluna} & \textbf{Tipo} & \textbf{Restrições} & \textbf{Descrição} \\
+\midrule
+id & UUID & PK, DEFAULT gen\_random\_uuid() & Identificador único \\
+name & VARCHAR(255) & NOT NULL & Nome do projeto \\
+description & TEXT & NOT NULL & Descrição detalhada \\
+status & VARCHAR(50) & NOT NULL, DEFAULT planning & Status do projeto \\
+priority & VARCHAR(50) & NOT NULL, DEFAULT medium & Prioridade \\
+start\_date & DATE & NULL & Data de início prevista \\
+end\_date & DATE & NULL & Data de término prevista \\
+created\_by & UUID & FK, NOT NULL & Criador do projeto \\
+created\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de criação \\
+updated\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de atualização \\
+deleted\_at & TIMESTAMP & NULL, INDEX & Soft delete (GORM) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Tabela tasks}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l l X}
+\toprule
+\textbf{Coluna} & \textbf{Tipo} & \textbf{Restrições} & \textbf{Descrição} \\
+\midrule
+id & UUID & PK, DEFAULT gen\_random\_uuid() & Identificador único \\
+title & VARCHAR(255) & NOT NULL & Título da tarefa \\
+description & TEXT & NULL & Descrição detalhada \\
+status & VARCHAR(50) & NOT NULL, DEFAULT todo & Status da tarefa \\
+priority & VARCHAR(50) & NOT NULL, DEFAULT medium & Prioridade \\
+due\_date & DATE & NULL & Data de vencimento \\
+project\_id & UUID & FK, NOT NULL & Projeto vinculado \\
+assigned\_to & UUID & FK, NULL & Usuário responsável \\
+created\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de criação \\
+updated\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de atualização \\
+deleted\_at & TIMESTAMP & NULL, INDEX & Soft delete (GORM) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Tabela project\_members}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l l X}
+\toprule
+\textbf{Coluna} & \textbf{Tipo} & \textbf{Restrições} & \textbf{Descrição} \\
+\midrule
+id & UUID & PK, DEFAULT gen\_random\_uuid() & Identificador único \\
+project\_id & UUID & FK, NOT NULL & Projeto vinculado \\
+user\_id & UUID & FK, NOT NULL & Usuário membro \\
+role & VARCHAR(50) & NOT NULL, DEFAULT member & Papel no projeto \\
+joined\_at & TIMESTAMP & NOT NULL, DEFAULT NOW() & Data de entrada \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Constraint:} \texttt{UNIQUE(project\_id, user\_id)} --- um usuário não pode ser membro duplicado no mesmo projeto.
+
+\subsection{Tabelas de Histórico}
+
+As tabelas \texttt{status\_history} e \texttt{task\_history} registram todas as alterações de status de projetos e tarefas respectivamente, contendo: status anterior, novo status, usuário responsável pela alteração e data/hora da mudança. Essas tabelas garantem rastreabilidade completa e permitem a construção de históricos e relatórios de evolução dos projetos ao longo do tempo.
+
+% ============================================================
+% 9. ARQUITETURA DO SISTEMA
+% ============================================================
+\section{Arquitetura do Sistema}
+
+A arquitetura do sistema segue o padrão de aplicação web em três camadas, com separação clara entre frontend, backend e banco de dados. O backend adota a Clean Architecture, separando as responsabilidades em camadas bem definidas que promovem a independência de frameworks, a testabilidade e a manutenibilidade do código.
+
+\subsection{Camadas do Backend}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Camada} & \textbf{Diretório} & \textbf{Responsabilidade} \\
+\midrule
+Handlers & \texttt{internal/transport/http/handler/} & Recebem requisições HTTP, binding de JSON para DTOs, chamam services \\
+DTOs & \texttt{internal/transport/http/dto/} & Estrutura de dados de entrada e saída da API \\
+Services & \texttt{internal/domain/service/} & Lógica de negócio, validações e regras de domínio \\
+Repositories (Interfaces) & \texttt{internal/domain/repository/} & Contratos (interfaces) para acesso a dados \\
+Repositories (Impl) & \texttt{internal/infrastructure/repository/} & Implementações usando GORM com PostgreSQL \\
+Models & \texttt{internal/domain/model/} & Entidades de domínio que representam tabelas do banco \\
+Middlewares & \texttt{internal/infrastructure/middleware/} & Autenticação JWT, CORS, logging, controle de acesso \\
+Utilities (Auth/Hash/Response) & \texttt{pkg/} & JWT, bcrypt, respostas padronizadas \\
+Entrypoints & \texttt{cmd/server/}, \texttt{cmd/seed/} & Servidor HTTP e utilitário de seed \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Fluxo de uma Requisição}
+
+O fluxo de processamento de uma requisição segue a sequência: (1) a requisição HTTP chega ao roteador Gin, que a direciona para o handler correspondente; (2) os middlewares são executados em sequência (CORS, Logger, Auth, Role, ProjectMember); (3) o handler faz o binding do JSON para o DTO e valida os campos; (4) o handler chama o service correspondente, que executa as regras de negócio; (5) para relatórios do dashboard, o service verifica primeiro o cache no Redis antes de consultar o banco; (6) o service chama o repository, que interage com o PostgreSQL via GORM; (7) o resultado é retornado ao handler, que formata a resposta no padrão padronizado e envia ao cliente.
+
+\subsection{Infraestrutura e Deploy}
+
+A infraestrutura de desenvolvimento e deploy utiliza Docker e Docker Compose para containerização dos serviços. O arquivo \texttt{docker-compose.yml} da API define os serviços de banco de dados PostgreSQL (imagem \texttt{postgres:16-alpine} com volume persistente e healthcheck), Redis (imagem \texttt{redis:7-alpine} para cache do dashboard) e o backend Go (com build multi-stage). O frontend possui seu próprio \texttt{docker-compose.yml} para deploy independente. O Makefile fornece comandos simplificados para build, execução, testes, migrações e operações com Docker. Além disso, o projeto conta com um utilitário de seed (\texttt{cmd/seed}) para criação de usuários administradores via linha de comando.
+
+\subsection{Segurança da Aplicação}
+
+O frontend implementa proteção de rotas via middleware do Next.js (\texttt{middleware.ts}), que intercepta requisições e redireciona usuários não autenticados para a tela de login, ao mesmo tempo em que impede o acesso às páginas de autenticação por usuários já logados. O arquivo \texttt{next.config.mjs} configura headers de segurança HTTP, incluindo: \texttt{X-Frame-Options} (DENY), \texttt{X-Content-Type-Options} (nosniff), \texttt{Referrer-Policy}, \texttt{Permissions-Policy} e \texttt{Content-Security-Policy} (CSP), reforçando a proteção contra ataques como clickjacking, MIME sniffing e injeção de scripts.
+
+% ============================================================
+% 10. DESIGN SYSTEM
+% ============================================================
+\section{Design System}
+
+O frontend da plataforma adota o Design System Cal.com, que define uma linguagem visual de SaaS moderno e profissional: canvas branco com CTAs primários em preto (\texttt{\#111111}), tipografia de display com Cal Sans e corpo com Inter, cards em cinza claro (\texttt{\#f5f5f5}) e footer escuro (\texttt{\#101010}) que encerra visualmente cada página.
+
+\subsection{Princípios do Design System}
+
+O design é intencionalmente \textbf{monocromático no layer de ação} --- sem azuis ou verdes em botões principais. As cores de destaque (badge pastels: orange \texttt{\#fb923c}, pink \texttt{\#ec4899}, violet \texttt{\#8b5cf6}, emerald \texttt{\#34d399}) são reservadas exclusivamente para tags de categoria e avatares. A filosofia é ``confiantemente engenheirado sem tentar impressionar'': hierarquia clara, whitespace generoso, uma ação primária por seção.
+
+\subsection{Tipografia}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l r r l l}
+\toprule
+\textbf{Token} & \textbf{Fonte} & \textbf{Tam.} & \textbf{Peso} & \textbf{Tracking} & \textbf{Uso} \\
+\midrule
+display-xl & Cal Sans & 64px & 600 & -2px & Hero h1 \\
+display-lg & Cal Sans & 48px & 600 & -1.5px & Section heads \\
+display-md & Cal Sans & 36px & 600 & -1px & Sub-section heads \\
+display-sm & Cal Sans & 28px & 600 & -0.5px & CTA-band heads \\
+title-lg & Inter & 22px & 600 & -0.3px & Plan names, section titles \\
+title-md & Inter & 18px & 600 & 0 & Feature card titles \\
+title-sm & Inter & 16px & 600 & 0 & Small card titles \\
+body-md & Inter & 16px & 400 & 0 & Texto corrido padrão \\
+body-sm & Inter & 14px & 400 & 0 & Footer, fine-print \\
+caption & Inter & 13px & 500 & 0 & Badge labels \\
+button & Inter & 14px & 600 & 0 & Button labels \\
+nav-link & Inter & 14px & 500 & 0 & Top-nav items \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Componentes Principais}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l l l X}
+\toprule
+\textbf{Componente} & \textbf{Background} & \textbf{Border Radius} & \textbf{Uso} \\
+\midrule
+button-primary & \texttt{\#111111} & 8px (md) & CTAs principais, 40px height \\
+button-secondary & \texttt{\#ffffff} + hairline & 8px (md) & Ações secundárias \\
+feature-card & \texttt{\#f5f5f5} & 12px (lg) & Cards de features, projetos \\
+feature-icon-card & \texttt{\#ffffff} + hairline & 12px (lg) & Cards de estatísticas, grids menores \\
+product-mockup-card & \texttt{\#ffffff} + hairline + shadow & 12px (lg) & Mockups de UI do produto \\
+badge-pill & \texttt{\#f5f5f5} ou pastel & 9999px (pill) & Tags de status e prioridade \\
+avatar-circle & \texttt{\#f5f5f5} & 9999px (full) & Avatares 36px \\
+nav-pill-group & \texttt{\#f8f9fa} & 9999px (pill) & Sub-navegação segmentada \\
+text-input & \texttt{\#ffffff} + hairline & 8px (md) & Campos de formulário, 40px height \\
+footer & \texttt{\#101010} & --- & Rodapé, única superfície escura \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ============================================================
+% 11. CONSIDERAÇÕES FINAIS
+% ============================================================
+\section{Considerações Finais}
+
+A Plataforma de Registro e Acompanhamento de Projetos apresenta-se como uma solução tecnológica viável e relevante para a problemática de gestão organizacional identificada. Ao integrar conhecimentos de programação front-end e back-end, redes de computadores e autonomia intelectual, o projeto demonstra a aplicação prática dos conteúdos estudados ao longo do 5\textsuperscript{o} semestre do curso de Tecnologia em Análise e Desenvolvimento de Sistemas.
+
+A escolha de Go para o backend e Next.js para o frontend reflete a aderência a tecnologias modernas e de alta demanda no mercado de trabalho, proporcionando experiência prática com ferramentas utilizadas por empresas de tecnologia. A adoção de PostgreSQL como banco de dados garante robustez e confiabilidade para a persistência dos dados, enquanto o Redis otimiza a performance do dashboard por meio de cache. A arquitetura baseada em API REST permite escalabilidade e fácil manutenção do sistema.
+
+O compromisso com acessibilidade digital e inclusão, materializado na conformidade com as diretrizes WCAG 2.1 nível AA, demonstra a responsabilidade social do projeto e sua aderência à competência de ``Estratégia e inclusão organizacional'' definida na DAC. A plataforma não apenas resolve um problema técnico, mas também promove a equidade no acesso a ferramentas de gestão, permitindo que diferentes perfis de usuários --- incluindo pessoas com deficiência --- utilizem o sistema de forma efetiva.
+
+O Design System adotado (Cal.com) reforça a identidade visual profissional e monocromática da plataforma, com CTAs em preto, tipografia Cal Sans para headlines e Inter para corpo, e uso parcimonioso de cores de destaque. Essa abordagem garante consistência visual, acessibilidade e uma experiência de usuário moderna e confiável.
+
+Por fim, o projeto contribui para o desenvolvimento de competências essenciais para o profissional de tecnologia, como o pensamento crítico, a resolução de problemas, o trabalho colaborativo e a comunicação técnica, preparando o aluno para os desafios do mercado de trabalho e para a continuação de sua formação acadêmica.
+
+% ============================================================
+% REFERÊNCIAS
+% ============================================================
+\section{Referências}
+
+\begin{enumerate}[leftmargin=2cm, label={[\arabic*]}]
+  \item Project Management Institute (PMI). \textit{PMBOK Guide --- 7th Edition}. Project Management Institute, 2021.
+  \item W3C. \textit{Web Content Accessibility Guidelines (WCAG) 2.1}. World Wide Web Consortium, 2018. Disponível em: \url{https://www.w3.org/TR/WCAG21/}
+  \item DONOVAN, A.; KERNIGHAN, B. \textit{The Go Programming Language}. Addison-Wesley, 2015.
+  \item NEXT.JS. \textit{Next.js Documentation}. Vercel, 2024. Disponível em: \url{https://nextjs.org/docs}
+  \item GIN FRAMEWORK. \textit{Gin Web Framework Documentation}. 2024. Disponível em: \url{https://gin-gonic.com/docs/}
+  \item GORM. \textit{GORM Documentation}. 2024. Disponível em: \url{https://gorm.io/docs/}
+  \item POSTGRESQL. \textit{PostgreSQL Documentation}. 2024. Disponível em: \url{https://www.postgresql.org/docs/}
+  \item TAILWIND CSS. \textit{Tailwind CSS Documentation}. 2024. Disponível em: \url{https://tailwindcss.com/docs}
+  \item RADIX UI. \textit{Radix UI Primitives}. 2024. Disponível em: \url{https://www.radix-ui.com/}
+  \item CAL.COM. \textit{Cal.com Design System}. 2024. Disponível em: \url{https://cal.com/}
+\end{enumerate}
+
+\end{document}
